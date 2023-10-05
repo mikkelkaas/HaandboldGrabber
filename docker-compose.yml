@@ -7,5 +7,5 @@ services:
       - CalendarService__BaseAddress=https://danskhaandbold.dk/
       - CalendarService__Url=tv-program
     ports:
-      - 8462:80/tcp
+      - 8463:80/tcp
     restart: always

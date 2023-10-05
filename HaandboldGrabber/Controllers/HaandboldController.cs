@@ -13,7 +13,7 @@ public class HaandboldController : ControllerBase
 
     // GET api/calendar/json
     [HttpGet]
-    // [ResponseCache(Duration = 43200, Location = ResponseCacheLocation.Any)]
+    [ResponseCache(Duration = 43200, Location = ResponseCacheLocation.Any)]
     public async Task<IActionResult> Get()
     {
         var matches = await _matchService.GetMatches();
