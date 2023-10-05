@@ -60,7 +60,7 @@ public class MatchService : IMatchService
                     // Extracting teams based on their order
                     var teamsNode = node.SelectSingleNode("./div[1]//p[1]");
                     var teams = teamsNode?.InnerText.Split(" - ");
-                    if (teams.Length == 2)
+                    if (teams is {Length: 2})
                     {
                         match.Team1 = teams[0].Trim();
                         match.Team2 = teams[1].Trim();
@@ -86,15 +86,15 @@ public class MatchService : IMatchService
 
     private string GetTvChannelFromImage(string imagestring)
     {
-        var last10 = imagestring.Substring(imagestring.Length - 10);
+        var last19= imagestring.Substring(imagestring.Length - 19);
 
-        return last10 switch
+        return last19 switch
         {
-            "lFTkSuQmCC" => "TV2 Sport",
-            "VORK5CYII=" => "TV2",
-            "5ErkJggg==" => "TV2 Play",
-            "ICAgICAgIC" => "DR2",
-            "AAAAAAAAAA" => "DR1",
+            "HP4AAAAAElFTkSuQmCC" => "TV2 Sport",
+            "mMAAAAASUVORK5CYII=" => "TV2",
+            "AAAAABJRU5ErkJggg==" => "TV2 Play",
+            "DUAAAAASUVORK5CYII=" => "DR2",
+            "wAAAABJRU5ErkJggg==" => "DR1",
             _ => "Ukendt"
         };
     }
