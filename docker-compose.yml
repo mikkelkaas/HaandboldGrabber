@@ -1,0 +1,11 @@
+version: "3"
+services:
+  haandboldgrabber:
+    build:
+      context: .
+    environment:
+      - CalendarService__BaseAddress=https://danskhaandbold.dk/
+      - CalendarService__Url=tv-program
+    ports:
+      - 8462:80/tcp
+    restart: always
