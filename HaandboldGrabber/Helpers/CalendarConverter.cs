@@ -14,9 +14,9 @@ public static class CalendarConverter
             Uid = Guid.NewGuid().ToString(),
             Summary = match.Team1 + " - " + match.Team2,
             Location = match.TvChannel,
-            Start = new CalDateTime(match.GameTime),
+            Start = new CalDateTime(match.GameTime, "Europe/Copenhagen"),
 
-            End = new CalDateTime(match.GameTime.AddHours(2)),
+            End = new CalDateTime(match.GameTime.AddHours(2), "Europe/Copenhagen"),
             IsAllDay = false
         };
     }
