@@ -90,9 +90,9 @@ public class MatchService : IMatchService
 
         return last19 switch
         {
-            "HP4AAAAAElFTkSuQmCC" => "TV2 Sport",
-            "mMAAAAASUVORK5CYII=" => "TV2",
-            "AAAAABJRU5ErkJggg==" => "TV2 Play",
+            "QAAAABJRU5ErkJggg==" => "TV2 Sport",
+            "DYAAAAASUVORK5CYII=" => "TV2",
+            "qgAAAAASUVORK5CYII=" => "TV2 Play",
             "DUAAAAASUVORK5CYII=" => "DR2",
             "wAAAABJRU5ErkJggg==" => "DR1",
             _ => "Ukendt"
