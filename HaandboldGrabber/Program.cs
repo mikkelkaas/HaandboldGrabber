@@ -2,7 +2,6 @@ using HaandboldGrabber;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 builder.Services.AddOptions();
 builder.Services.AddMemoryCache();
@@ -18,7 +17,6 @@ builder.Services.AddScoped<IMatchService, MatchService>();
 builder.Services.AddHttpClient("HaandboldGrabber")
     .ConfigureHttpClient(c => c.BaseAddress = haandboldGrabberOptions.BaseAddress);
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -32,7 +30,14 @@ app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 
-
-app.MapControllers();
+app.MapGet("/haandbold", async (IMatchService matchService) =>
+{
+    var matches = await matchService.GetMatches();
+    var calendar = CalendarConverter.ConvertToCalendar(matches);
+    var ical = CalendarConverter.Serialize(calendar);
+    return Results.File(Encoding.UTF8.GetBytes(ical), "text/calendar", "calendar.ics");
+})
+.WithName("GetHaandbold")
+.WithOpenApi();
 
 app.Run();
