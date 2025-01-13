@@ -42,7 +42,7 @@ jobs:
       - name: Build and Publish Image
         run: >
           dotnet publish /t:PublishContainer
-          -p ContainerImageTags="1.1.0;latest"
+          -p ContainerImageTags='"1.1.0;latest"'
           -p ContainerRegistry=${{ env.REGISTRY }}
           -r linux-x64
           -c Release
