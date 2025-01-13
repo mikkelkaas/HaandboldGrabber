@@ -39,29 +39,37 @@ jobs:
             type=ref,event=branch
             type=raw,value=latest
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and Publish Image
+        run: >
+          dotnet publish /t:PublishContainer
+          -p ContainerImageTags="1.1.0;latest"
+          -p ContainerRegistry=${{ env.REGISTRY }}
+          -r linux-x64
+          -c Release
 
-  deploy-using-ssh:
-    needs: build-and-push-image
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
-    steps:
-      - name: remote docker-compose up via ssh
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER_DEPLOYMENT }}
-          key: ${{ secrets.SSH_PRIVATEKEY_DEPLOYMENT }}
-          port: 22
-          script: |
-            cd ~/docker/haandboldgrabber
-            docker compose stop 
-            docker compose pull
-            docker compose up -d
+      # - name: Build and push Docker image
+      #   id: push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+
+  # deploy-using-ssh:
+  #   needs: build-and-push-image
+  #   runs-on: ubuntu-latest
+  #   if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+  #   steps:
+  #     - name: remote docker-compose up via ssh
+  #       uses: appleboy/ssh-action@v0.1.5
+  #       with:
+  #         host: ${{ secrets.SSH_HOST }}
+  #         username: ${{ secrets.SSH_USER_DEPLOYMENT }}
+  #         key: ${{ secrets.SSH_PRIVATEKEY_DEPLOYMENT }}
+  #         port: 22
+  #         script: |
+  #           cd ~/docker/haandboldgrabber
+  #           docker compose stop 
+  #           docker compose pull
+  #           docker compose up -d
