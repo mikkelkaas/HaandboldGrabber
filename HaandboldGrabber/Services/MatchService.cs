@@ -95,6 +95,7 @@ public class MatchService : IMatchService
             "qgAAAAASUVORK5CYII=" => "TV2 Play",
             "DUAAAAASUVORK5CYII=" => "DR2",
             "wAAAABJRU5ErkJggg==" => "DR1",
+            "KKACiiigAooooA//9k=" => "DR TV"
             _ => "Ukendt"
         };
     }
