@@ -16,8 +16,7 @@ public static class CalendarConverter
             Location = match.TvChannel,
             Start = new CalDateTime(match.GameTime, "Europe/Copenhagen"),
             Description = match.League,
-            End = new CalDateTime(match.GameTime.AddHours(2), "Europe/Copenhagen"),
-            IsAllDay = false
+            End = new CalDateTime(match.GameTime.AddHours(2), "Europe/Copenhagen")
         };
     }
 
